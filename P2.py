@@ -1,8 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[1]:
-
 
 import numpy as np
 import pandas as pd
@@ -25,8 +20,6 @@ from warnings import simplefilter
 simplefilter(action='ignore', category=FutureWarning)
 
 
-# In[2]:
-
 
 # import dataset
 train_labels = pd.read_csv('./train_labels.csv')
@@ -34,13 +27,7 @@ train_features = pd.read_csv('./train_features.csv')
 test_features = pd.read_csv('./test_features.csv')
 
 
-# In[169]:
-
-
 print("number of null value:", train_features.isnull().sum())
-
-
-# In[3]:
 
 
 # different data preprocessing for classifications and regression
@@ -97,8 +84,6 @@ def imputeDF(df,step=12,strategy="mean",good_features = ["RRate","ABPm","ABPd","
             
     return df_impute
 
-
-# In[4]:
 
 
 # functions to do K-fold classification and regression
@@ -168,14 +153,7 @@ def main():
     X_clf =  imputeDF(train_features, strategy="mean")
     X_reg = imputeDF(train_features, strategy="combine")
 
-
-    # In[6]:
-
-
     X_reg.head()
-
-
-    # In[7]:
 
 
     # After preprocessing, there are still NaN left, replace them with 0 or global column means
@@ -245,15 +223,11 @@ def main():
     X_reg_pred = imputeDF(test_features, strategy="combine")
 
 
-    # In[13]:
-
 
     imp_reg = SimpleImputer(missing_values=np.nan, strategy='mean', fill_value=0)
     imp_reg.fit(X_reg_pred)
     X_reg_pred1 = pd.DataFrame(imp_reg.transform(X_reg_pred))
 
-
-    # In[18]:
 
 
 
